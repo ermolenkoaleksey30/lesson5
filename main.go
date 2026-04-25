@@ -5,47 +5,46 @@ import (
 	"fmt"
 )
 
+func divide(a, b int) (int, error) {
+	if b == 0 {
+		return 0, errors.New("Error 0")
+	}
+	return a / b, nil
+}
+
 func main() {
 	for {
-		var number1, number2 int
-		var question string
-		_, err := fmt.Scan(&number1, &number2)
+		var num1, num2 int
+		var otvet string
+		_, err := fmt.Scan(&num1, &num2)
+		if err != nil {
+			fmt.Println("Error, text")
+			break
+		}
+		rezult, err := divide(num1, num2)
 		if err != nil {
 			fmt.Println("Error")
-			continue
+			break
 		}
-
-		rezult, err := divide(number1, number2)
-		if err != nil {
-			fmt.Println("Error")
-			continue
-		}
-
 		switch {
 		case rezult > 10:
-			fmt.Println("Результат большой")
+			fmt.Println("rezult > 10")
 
-		case rezult <= 10 && rezult >= 1:
-			fmt.Println("Результат средний")
+		case rezult <= 1 && rezult >= 10:
+			fmt.Println("0 < rezult < 10")
 
 		default:
-			fmt.Println("Результат маленький или ноль")
+			fmt.Println("rezult < 0 or smoll")
 		}
-		fmt.Scan(&question)
-		if question == "yes" {
-			fmt.Println("Заново")
-		} else if question == "no" {
+		fmt.Println("Повторить операцию? YES or NO")
+		fmt.Scan(&otvet)
+		if otvet == "YES" {
+			fmt.Println("YES")
+		} else if otvet == "NO" {
+			fmt.Println("NO")
 			break
 		} else {
 			continue
 		}
 	}
-
-}
-
-func divide(a, b int) (int, error) {
-	if b == 0 {
-		return 0, errors.New("Error")
-	}
-	return a / b, nil
 }
